@@ -17,6 +17,6 @@
     "mongodb": "*",
     "express-session":"*",
     "express-flash":"*",
-     "markdown":"*"
+    "markdown":"*"
   }
 }
