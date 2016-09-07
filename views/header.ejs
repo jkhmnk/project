@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
 
-  <h1 style="color:green;"> 这是头部的提示，你在那个地方：<%= title %></h1>
-  <nav>
-  	<span><a href="/" title="主页">home</a></span>
+<h1 style="color:green;"> 这是头部的提示，你在那个地方：<%= title %></h1>
+<nav>
+    <span><a href="/" title="主页">home</a></span>
     <% if (user) { %>
     <span><a href="/upload" title="上传">upload</a></span>
-  	<span><a href="/post" title="发表">post</a></span>
-  	<span><a href="/logout" title="退出">logout退出</a></span>
+    <span><a href="/post" title="发表">post</a></span>
+    <span><a href="/logout" title="退出">logout退出</a></span>
 
     <% } else { %>
     <span><a href="/login" title="登录">login</a></span>
     <span><a href="/reg" title="注册">register</a></span>
     <% } %>
-  </nav>
-<% if (user) { %><h2 style="color:red;">您已登录成功！！！</h2><% } %>
+</nav>
+<% if (user) { %>
+<h2 style="color:red;">您已登录成功！！！</h2>
+<% } %>
 
 <% if (success) { %>
 <div><%= success %></div>

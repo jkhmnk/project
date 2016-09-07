@@ -1,5 +1,5 @@
 module.exports = {
-    cookieSecret: 'myblog',
+    cookieSecret: 'blog',
     db:'db',
     host:'localhost'
 };
