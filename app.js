@@ -5,40 +5,46 @@ var settings = require('./settings'); //zw
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var session = require('express-session'); //zw
-var MongoStore = require('connect-mongo')(session); //zw
-var flash = require('connect-flash'); //zw
+//var session = require('express-session'); //zw
+//var MongoStore = require('connect-mongo')(session); //zw
+//var flash = require('connect-flash'); //zw
+var port = process.env.PORT || 3000
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000); //zw
+//app.set('port', process.env.PORT || 3000); //zw
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(flash()); //zw
+//app.use(flash()); //zw
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser({keepExtensions: true, uploadDir: './public/images/'}));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser({keepExtensions: true, uploadDir: './public/images/'}));
+
+
+// var staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
+app.use('static', express.static('./static'))
+app.use('/', express.static(path.resolve(__dirname, 'bin/www')));
 
 app.use(cookieParser());
 
-app.use(session({ //zw
-    secret: settings.cookieSecret,
-    key: settings.db,
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},
-    store: new MongoStore({
-        db: settings.db
-    })
-}))
+//app.use(session({ //zw
+//    secret: settings.cookieSecret,
+//    key: settings.db,
+//    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},
+//    store: new MongoStore({
+//        db: settings.db
+//    })
+//}))
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -76,8 +82,16 @@ app.use(function (err, req, res, next) {
     });
 });
 
-module.exports = app;
+//module.exports = app;
 
-http.createServer(app).listen(app.get('port'), function () { //zw
-    console.log('server port is ' + app.get('port'));
+//http.createServer(app).listen(app.get('port'), function () { //zw
+//    console.log('server port is ' + app.get('port'));
+//})
+
+module.exports = app.listen(port, function (err) {
+    if (err) {
+        console.log(err)
+        return
+    }
+    console.log('Listening at http://localhost:' + port + '\n')
 })
