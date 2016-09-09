@@ -1,14 +1,15 @@
 var express = require('express');
 var http = require('http'); //zw
 var path = require('path');
-var settings = require('./settings'); //zw
-var favicon = require('serve-favicon');
+//var settings = require('./settings'); //zw
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var template = require('art-template')
 //var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes = require('./../routes/index');
+//var users = require('./../routes/users');
 
 //var session = require('express-session'); //zw
 //var MongoStore = require('connect-mongo')(session); //zw
@@ -19,8 +20,13 @@ var app = express();
 
 //app.set('port', process.env.PORT || 3000); //zw
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+
+// template
+template.config('base', '')
+template.config('extname', '.html')
+app.engine('.html', template.__express)
+app.set('views', path.join(__dirname, '../src'));
+app.set('view engine', 'html')
 //app.use(flash()); //zw
 
 // uncomment after placing your favicon in /public
@@ -32,8 +38,10 @@ app.use(logger('dev'));
 
 
 // var staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
+
+// static
 app.use('static', express.static('./static'))
-app.use('/', express.static(path.resolve(__dirname, 'bin/www')));
+app.use('/', express.static(path.resolve(__dirname, '../src/index')));
 
 app.use(cookieParser());
 
@@ -48,8 +56,8 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use(routes);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
