@@ -11,7 +11,6 @@ var app = express();
 template.config('base', '')
 template.config('extname', '.html')
 app.engine('.html', template.__express)
-
 app.set('view engine', 'html')
 app.set('views', path.join(__dirname, '../src'));
 
@@ -21,6 +20,7 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', express.static(path.resolve(__dirname, 'src/index.html')));
 
+// route
 app.use(routes);
 
 module.exports = app.listen(port, function (err) {
