@@ -174,6 +174,7 @@ Post.update = function (name, day, title, post, callback) {
         }
         //读取posts集合
         db.collection('posts', function (err, collection) {
+            
             if (err) {
                 mongodb.close();
                 return callback(err);
